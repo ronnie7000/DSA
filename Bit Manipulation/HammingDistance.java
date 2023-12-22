@@ -1,11 +1,9 @@
 public class HammingDistance {
     public static int solve(int[] A) {
-        int ans = 0;
-        double mod = Math.pow(10, 9) + 7;
-
+        long ans = 0;
+        int mod = (1000*1000*1000) + 7;
         for (int i = 0; i < 31; i++) {
-            int count = 0;
-
+            long count = 0;
             for (int j = 0; j < A.length; j++) {
                 int temp = A[j] >> i;
                 if ((temp & 1) == 0) {
@@ -14,7 +12,8 @@ public class HammingDistance {
             }
             ans += (2 * count * (A.length - count));
         }
-        return ans % (int) mod;
+        ans=ans%mod;
+        return (int)ans;
     }
 
     public static void main(String[] args) {
