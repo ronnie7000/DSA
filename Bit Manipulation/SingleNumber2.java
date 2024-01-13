@@ -1,6 +1,6 @@
 public class SingleNumber2 {
     public static int solve(int[] A) {
-        int[] ans = new int[32];
+        int ans = 0;
         for (int i = 0; i < 31; i++) {
             int count = 0;
             for (int j = 0; j < A.length; j++) {
@@ -10,15 +10,10 @@ public class SingleNumber2 {
                 }
             }
             if (count % 3 != 0) {
-                ans[i] = 1;
+                ans += 1 << i;
             }
         }
-        double val = 0;
-        for (int i = 0; i < ans.length; i++) {
-            if (ans[i] == 1)
-                val = val + Math.pow(2, i);
-        }
-        return (int) val;
+        return ans;
     }
 
     public static void main(String[] args) {
