@@ -1,12 +1,11 @@
 package Math1;
 
 import java.util.ArrayList;
-import java.util.Collections;
 
 public class MergeOverlappingIntervals {
 
     public static ArrayList<Interval> solve(ArrayList<Interval> intervals) {
-        Collections.sort(intervals, (a, b) -> {
+        intervals.sort((a, b) -> {
             return a.start - b.start;
         });
         ArrayList<Interval> res = new ArrayList<Interval>();
