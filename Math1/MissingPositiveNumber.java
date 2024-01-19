@@ -1,10 +1,9 @@
 package Math1;
+
 public class MissingPositiveNumber {
     public static int solve(int[] A) {
 
         boolean found1 = false;
-        //int val = 1;
-
         for (int i = 0; i < A.length; i++) {
             if (A[i] == 1) {
                 found1 = true;
@@ -12,20 +11,39 @@ public class MissingPositiveNumber {
                 A[i] = 1;
             }
         }
-
         if (!found1)
             return 1;
         for (int i = 0; i < A.length; i++) {
             int num = Math.abs(A[i]);
             A[num - 1] = -1 * Math.abs(A[num - 1]);
         }
-
         int i = 1;
         while (A[i] < 0 && i < A.length) {
-            // val++;
             i++;
         }
         return i + 1;
+    }
+
+    public static int solve2(int[] A) {
+        int n = A.length;
+        int ans = n + 1;
+        for (int i = 0; i < n; i++) {
+            if (A[i] <= 0 || A[i] > n)
+                A[i] = n + 2;
+        }
+        for (int i = 0; i < n; i++) {
+            int val = Math.abs(A[i]);
+            if (val <= n) {
+                int idx = val - 1;
+                A[idx] = -1 * Math.abs(A[idx]);
+            }
+        }
+        for (int i = 0; i < n; i++) {
+            if (A[i] >= 0) {
+                return i + 1;
+            }
+        }
+        return ans;
     }
 
     public static void main(String[] args) {
@@ -70,6 +88,8 @@ public class MissingPositiveNumber {
                 576, 640, 378, 963, 601, 267, 207, 370, 225, 260, 500, 883, 159, 58, 166, 745, 179, 251, 271, 294, 257,
                 631, 895, 604, 828, 953, 520, 16, 818, 539, 491, 120, 875, 89, 692, 458, 552, 599, 861, 492, 74, 699,
                 55, 475, 345, 24, 700, 889, 937, 785, 758, 983 };
+
+        // int[] B = { -9, 2, 6, 4, -8, 1, 3 };
         System.out.println(solve(A));
     }
 }
