@@ -5,13 +5,11 @@ public class SortedMatrixSearch {
         int r = 0;
         int c = A[0].length - 1;
         int loc = Integer.MAX_VALUE;
-        boolean foundValue = false;
         while ((r < A.length) && (c >= 0)) {
             if (A[r][c] == B) {
-                while (c > 0 && A[r][c - 1] == B) {
-                    c--;
-                }
-                return (r + 1) * 1009 + c + 1;
+                int temp = (r + 1) * 1009 + c + 1;
+                loc = Math.min(temp, loc);
+                c--;
             }
             else if (A[r][c] > B) {
                 c--;
@@ -19,10 +17,7 @@ public class SortedMatrixSearch {
                 r++;
             }
         }
-        if (foundValue) {
-            return loc;
-        }
-        return -1;
+        return loc == Integer.MAX_VALUE? -1 : loc;
     }
 
     public static int solve2(int[][]A, int B){
@@ -43,10 +38,10 @@ public class SortedMatrixSearch {
     }
 
     public static void main(String[] args) {
-        // int[][] A = { { 2, 8, 8, 8 }, { 2, 8, 8, 8 }, { 2, 8, 8, 8 } };
-        int[][] A = { { 1,3,5,7 }, { 10,11,16,20 }, { 23,30,34,50 } };
-        int B = 34;
+        int[][] A = { { 2, 8, 8, 8 }, { 2, 8, 8, 8 }, { 2, 8, 8, 8 } };
+        //int[][] A = { { 1,3,5,7 }, { 10,11,16,20 }, { 23,30,34,50 } };
+        int B = 8;
 
-        System.out.println(solve2(A, B));
+        System.out.println(solve(A, B));
     }
 }
