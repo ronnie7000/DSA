@@ -2,7 +2,7 @@ public class SingleNumber3 {
     public static int[] solve(int[] A) {
 
         int a = 0, b = 0;
-        for (int i = 0; i < 31; i++) {
+        for (int i = 0; i <= 31; i++) {
             int oddXOR = 0;
             int eveXOR = 0;
 

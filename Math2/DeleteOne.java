@@ -1,4 +1,5 @@
 package Math2;
+
 public class DeleteOne {
 
     public static int gcd(int A, int B) {
@@ -21,24 +22,19 @@ public class DeleteOne {
         int[] preGcd = new int[A.length + 1];
         int[] sufGcd = new int[A.length + 1];
         int size = A.length;
-
         for (int i = 0; i < size; i++) {
             preGcd[i + 1] = gcd(A[i], preGcd[i]);
         }
-
         for (int i = size - 1; i >= 0; i--) {
             sufGcd[i] = gcd(A[i], sufGcd[i + 1]);
         }
-
         int maxGcd = 1;
-
         for (int i = 0; i < size; i++) {
             int val = gcd(preGcd[i], sufGcd[i + 1]);
             if (val > maxGcd) {
                 maxGcd = val;
             }
         }
-
         return maxGcd;
     }
 
