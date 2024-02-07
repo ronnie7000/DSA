@@ -11,7 +11,7 @@ public class DivisorCount {
         int[] S = new int[max + 1];
         for (int p = 1; p < S.length; p++) {
             S[p]++;
-            for (int j = p * 2; j < S.length; j += p) {
+            for (int j = 2 * p; j < S.length; j += p) {
                 S[j]++;
             }
         }

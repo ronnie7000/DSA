@@ -38,8 +38,8 @@ public class Permutations {
 
     public static void main(String[] args) {
         list.add(1);
-        // list.add(2);
-
+        list.add(2);
+        list.add(3);
         Boolean[] used = new Boolean[list.size()];
         for (int i = 0; i < used.length; i++) {
             used[i] = false;
