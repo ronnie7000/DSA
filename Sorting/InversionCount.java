@@ -2,8 +2,8 @@ package Sorting;
 
 import java.util.ArrayList;
 
-public class ReversePair {
-
+public class InversionCount {
+    public static long mod = 1000000007;
     public static long count = 0;
     public static ArrayList<Integer> list = new ArrayList<>();
 
@@ -35,7 +35,10 @@ public class ReversePair {
         for (int i = 0; i < n; i++) {
             arr2[i] = list.get(mid + i + 1);
         }
-        count += getReverseCount(low, mid, high);
+
+        count += getInversionCount(arr1, arr2);
+        count %= mod;
+
         int i = 0, j = 0, k = 0;
         while (k < m + n) {
             int val1 = i < m ? arr1[i] : Integer.MAX_VALUE;
@@ -51,15 +54,13 @@ public class ReversePair {
         }
     }
 
-    public static long getReverseCount(int low, int mid, int high) {
+    public static long getInversionCount(int[] A, int[] B) {
         long ans = 0;
-        int i = low, j = mid + 1;
-        while (i <= mid && j <= high) {
-            long val1 = list.get(i);
-            long val2 = list.get(j);
-            val2 *= 2;
-            if (val1 > val2) {
-                ans += mid + 1 - i;
+        int i = 0, j = 0;
+        while (i < A.length && j < B.length) {
+            if (A[i] > B[j]) {
+                ans += A.length - i;
+                ans %= mod;
                 j++;
             } else
                 i++;
@@ -68,11 +69,13 @@ public class ReversePair {
     }
 
     public static void main(String[] args) {
-        ArrayList<Integer> A = new ArrayList<>();
-        A.add(2000000000);
-        A.add(2000000000);
-        A.add(-2000000000);
-        int ans = solve(A);
-        System.out.println(ans);
+        ArrayList<Integer> inpList = new ArrayList<>();
+        inpList.add(3);
+        inpList.add(4);
+        inpList.add(1);
+        inpList.add(2);
+
+        System.out.println(solve(inpList));
     }
+
 }
