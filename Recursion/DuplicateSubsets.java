@@ -2,53 +2,51 @@ package Recursion;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.HashMap;
+import java.util.Comparator;
+import java.util.List;
 
 public class DuplicateSubsets {
-    private static ArrayList<ArrayList<Integer>> ans = new ArrayList<ArrayList<Integer>>();
+    private static ArrayList<ArrayList<Integer>> res = new ArrayList<>();
 
     public static ArrayList<ArrayList<Integer>> subsetsWithDup(ArrayList<Integer> A) {
-        Collections.sort(A);    
-        HashMap<Integer, Integer> map = new HashMap<Integer, Integer>();
-        ArrayList<Integer> list = new ArrayList<Integer>();
-        for( Integer num : A ){
-            map.put( num, map.getOrDefault(num, 0) +1 );
-            if( !list.contains(num) ){
-                list.add(num);
+        if (A == null)
+            return null;
+        Collections.sort(A);
+        rec(A, new ArrayList<>(), 0);
+        Collections.sort(res, new Comparator<List<Integer>>() {
+            @Override
+            public int compare(List<Integer> a, List<Integer> b) {
+                int size = Math.min(a.size(), b.size());
+                for (int i = 0; i < size; i++) {
+                    int cmp = Integer.compare(a.get(i), b.get(i));
+                    if (cmp != 0)
+                        return cmp;
+                }
+                return Integer.compare(a.size(), b.size());
             }
-        }
-        ArrayList<Integer> subset = new ArrayList<Integer>();
-        solve( 0, subset, map, list );
-
-        return ans;
+        });
+        return res;
     }
 
-
-    public static void solve(int index, ArrayList<Integer> subset, HashMap<Integer, Integer> map, ArrayList<Integer> list){
-        
-        //Base Condition
-        if(index == list.size()){
-            ans.add( new ArrayList<Integer>(subset));
+    public static void rec(ArrayList<Integer> A, ArrayList<Integer> ans, int index) {
+        if (index >= A.size()) {
+            res.add(new ArrayList<>(ans));
             return;
-            
         }
-
-        int num = list.get(index);
-        int count = map.get(num);
-
-        while( count >=0 ){
-            subset.add(num);
-            map.put( num, count -1 );
-            solve( index, subset, map, list );
-            // subset.remove( subset.size() -1 );
-            // map.put( num, count );
+        int curIndex = index + 1;
+        while (curIndex < A.size() && A.get(curIndex) == A.get(index))
+            curIndex++;
+        for (int i = 0; i <= (curIndex - index); i++) {
+            for (int j = 0; j < i; j++)
+                ans.add(A.get(index));
+            rec(A, ans, curIndex);
+            for (int j = 0; j < i; j++)
+                ans.remove(ans.size() - 1);
         }
-
-        solve( index + 1, subset, map, list );
     }
 
     public static void displayResults() {
-        for (ArrayList<Integer> result : ans) {
+        for (ArrayList<Integer> result : res) {
             for (Integer val : result) {
                 System.out.print(val + " ");
             }
