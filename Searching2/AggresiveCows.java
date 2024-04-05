@@ -3,8 +3,8 @@ import java.util.Arrays;
 
 public class AggresiveCows {
     public static int solve(int[] barns, int cows) {
-        int ans = 0;
         Arrays.sort(barns);
+        int ans = 0;
         if (cows == 0 || barns.length == 0 || cows > barns.length)
             return 0;
         if (cows == 1)
@@ -41,8 +41,8 @@ public class AggresiveCows {
     }
 
     public static void main(String[] args) {
-        int[] A = { 5,17,100,11};
-        int B = 2;
+        int[] A = { 2,6,11,19,25,30,39,43};
+        int B = 4;
         System.out.println(solve(A, B));
     }
 }
